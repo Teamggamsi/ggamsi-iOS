@@ -33,7 +33,7 @@ struct LoginView: View {
                             .font(.system(size: 25))
                             .padding(.horizontal, 50)
                         HStack(spacing: 0) {
-                            Text("앱이름")
+                            Text("못난이")
                                 .foregroundColor(.mainColor)
                             Text(" 입니다")
                         }
