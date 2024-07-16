@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     init() {
-            UIPageControl.appearance().currentPageIndicatorTintColor = .gray
-            UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.2)
-        }
+        UIPageControl.appearance().currentPageIndicatorTintColor = .gray
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.2)
+    }
     var body: some View {
         NavigationView {
             TabView {

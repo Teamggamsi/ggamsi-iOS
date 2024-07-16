@@ -102,11 +102,6 @@ struct LoginView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .onReceive(tokenManager.$token) { token in
-            if let token = token {
-                self.showingHome = true
-            }
-        }
     }
     
     func login() {
@@ -119,12 +114,12 @@ struct LoginView: View {
             switch response.result {
             case .success(let loginResponse):
                 if loginResponse.success {
-                    self.tokenManager.saveToken(loginResponse.token)
+                    self.showingHome = true
                 } else {
-                    print("로그인 실패")
+                    self.showingHome = false
                 }
             case .failure(let error):
-                print("Alamofire 오류: \(error)")
+                print("네트워크 오류")
             }
         }
     }

@@ -6,14 +6,28 @@
 //
 
 import SwiftUI
+import Alamofire
+
+struct SignupResponse: Codable {
+    let result: Bool
+    let token: String
+}
 
 struct SignupView: View {
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var confirmPassword: String = ""
+    @State private var nickname: String = ""
+    @State private var showingHome = false
+    
+    @ObservedObject private var tokenManager = TokenManager.shared
+    
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
                     Rectangle()
-                        .frame(height:0.5)
+                        .frame(height: 0.5)
                         .foregroundColor(Color(hex: "#CECECE"))
                     Spacer()
                     VStack(alignment: .leading) {
@@ -34,9 +48,8 @@ struct SignupView: View {
                             .padding(.leading, 50)
                         
                         VStack {
-                            TextField("", text:
-                                    .constant(""))
-                            .padding(.leading, 50)
+                            TextField("", text: $nickname)
+                                .padding(.leading, 50)
                             Divider()
                                 .background(Color.gray)
                                 .padding(.horizontal, 50)
@@ -49,7 +62,7 @@ struct SignupView: View {
                             .padding(.leading, 50)
                         
                         VStack {
-                            SecureField("", text: .constant(""))
+                            TextField("", text: $email)
                                 .padding(.leading, 50)
                             Divider()
                                 .background(Color.gray)
@@ -63,7 +76,7 @@ struct SignupView: View {
                             .padding(.leading, 50)
                         
                         VStack {
-                            SecureField("", text: .constant(""))
+                            SecureField("", text: $password)
                                 .padding(.leading, 50)
                             Divider()
                                 .background(Color.gray)
@@ -77,7 +90,7 @@ struct SignupView: View {
                             .padding(.leading, 50)
                         
                         VStack {
-                            SecureField("", text: .constant(""))
+                            SecureField("", text: $confirmPassword)
                                 .padding(.leading, 50)
                             Divider()
                                 .background(Color.gray)
@@ -86,7 +99,7 @@ struct SignupView: View {
                     }
                     
                     Button(action: {
-                        // action here
+                        signup()
                     }) {
                         Text("회원가입")
                             .font(.system(size: 23))
@@ -110,9 +123,37 @@ struct SignupView: View {
                     }
                     Spacer()
                 }
+                .background(
+                    NavigationLink(destination: HomeView(), isActive: $showingHome) {
+                        EmptyView()
+                    }
+                )
             }
         }
         .navigationBarBackButtonHidden()
+    }
+    
+    func signup() {
+        let parameters: [String: String] = [
+            "email": email,
+            "password": password,
+            "confirmPassword": confirmPassword,
+            "nickname": nickname,
+        ]
+        
+        AF.request("http://43.201.116.75:8080/api/register", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default).responseDecodable(of: SignupResponse.self) { response in
+            switch response.result {
+            case .success(let signupResponse):
+                if signupResponse.result {
+                    self.tokenManager.saveToken(signupResponse.token)
+                    self.showingHome = true
+                } else {
+                    print("회원가입 실패")
+                }
+            case .failure(let error):
+                print("Alamofire 오류: \(error)")
+            }
+        }
     }
 }
 
