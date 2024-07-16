@@ -9,25 +9,28 @@ import SwiftUI
 
 struct ContentView: View {
     init() {
-            UIPageControl.appearance().currentPageIndicatorTintColor = .gray
-            UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.2)
-        }
+        UIPageControl.appearance().currentPageIndicatorTintColor = .gray
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.2)
+    }
     var body: some View {
-        TabView {
-            FirstStartView()
-                .tabItem {
-                    Text("First")
-                }
-            SecondStartView()
-                .tabItem {
-                    Text("Second")
-                }
-            ThirdStartView()
-                .tabItem {
-                    Text("Third")
-                }
+        NavigationView {
+            TabView {
+                FirstStartView()
+                    .tabItem {
+                        Text("First")
+                    }
+                SecondStartView()
+                    .tabItem {
+                        Text("Second")
+                    }
+                ThirdStartView()
+                    .tabItem {
+                        Text("Third")
+                    }
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .navigationBarHidden(true)
         }
-        .tabViewStyle(PageTabViewStyle())
     }
 }
 

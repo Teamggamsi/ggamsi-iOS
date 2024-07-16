@@ -90,9 +90,6 @@ struct ImageButton: View {
                 .frame(width: 50, height: 50)
                 .background(Color(hex: "#F1F0F0"))
                 .cornerRadius(10)
-        }
-    }
-}
 
 struct ProductItem: View {
     var body: some View {
@@ -114,4 +111,3 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
     }
-}
