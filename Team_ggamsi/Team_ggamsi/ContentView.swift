@@ -13,21 +13,24 @@ struct ContentView: View {
             UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.2)
         }
     var body: some View {
-        TabView {
-            FirstStartView()
-                .tabItem {
-                    Text("First")
-                }
-            SecondStartView()
-                .tabItem {
-                    Text("Second")
-                }
-            ThirdStartView()
-                .tabItem {
-                    Text("Third")
-                }
+        NavigationView {
+            TabView {
+                FirstStartView()
+                    .tabItem {
+                        Text("First")
+                    }
+                SecondStartView()
+                    .tabItem {
+                        Text("Second")
+                    }
+                ThirdStartView()
+                    .tabItem {
+                        Text("Third")
+                    }
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .navigationBarHidden(true)
         }
-        .tabViewStyle(PageTabViewStyle())
     }
 }
 

@@ -34,9 +34,7 @@ struct FirstStartView: View {
                     .frame(width: 412, height: 274)
                     .padding(.bottom,40)
                 
-                Button(action: {
-                    
-                }) {
+                NavigationLink(destination: LoginView()) {
                     Text("계속하기")
                         .font(.system(size: 20))
                         .foregroundColor(.white)
