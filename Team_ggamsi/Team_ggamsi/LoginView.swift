@@ -1,3 +1,10 @@
+//
+//  LoginView.swift
+//  Team_ggamsi
+//
+//  Created by bibiga on 7/16/24.
+//
+
 import SwiftUI
 
 struct LoginView: View {
@@ -25,7 +32,7 @@ struct LoginView: View {
                         .font(.system(size: 15))
                         .foregroundColor(Color(hex: "#6B6B6B"))
                         .padding(.leading, 50)
-                    
+
                     VStack {
                         TextField("", text:
                                 .constant(""))
@@ -34,13 +41,13 @@ struct LoginView: View {
                             .background(Color.gray)
                             .padding(.horizontal, 50)
                     }
-                    
+
                     Text("비밀번호")
                         .font(.system(size: 15))
                         .foregroundColor(Color(hex: "#6B6B6B"))
                         .padding(.top, 35)
                         .padding(.leading, 50)
-                    
+
                     VStack {
                         SecureField("", text: .constant(""))
                             .padding(.leading, 50)
@@ -50,7 +57,7 @@ struct LoginView: View {
                             .padding(.bottom, 80)
                     }
                 }
-                
+
                 Button(action: {
                     // action here
                 }) {
@@ -62,12 +69,12 @@ struct LoginView: View {
                         .cornerRadius(15)
                 }
                 .padding(.top, 40) // Adjusted the padding to replace the Spacer
-                
+
                 Text("아직 회원가입이 되어 있지 않나요?")
                     .foregroundColor(Color(hex: "#6B6B6B"))
                     .font(.system(size: 15))
                     .padding(.top, 20)
-                
+
                 Text("회원가입 하러 가기")
                     .font(.system(size: 15))
                     .foregroundColor(Color(hex: "#34C831"))

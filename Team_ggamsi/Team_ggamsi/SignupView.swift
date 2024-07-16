@@ -1,3 +1,10 @@
+//
+//  SignupView.swift
+//  Team_ggamsi
+//
+//  Created by bibiga on 7/16/24.
+//
+
 import SwiftUI
 
 struct SignupView: View {
@@ -25,7 +32,7 @@ struct SignupView: View {
                         .font(.system(size: 15))
                         .foregroundColor(Color(hex: "#6B6B6B"))
                         .padding(.leading, 50)
-                    
+
                     VStack {
                         TextField("", text:
                                 .constant(""))
@@ -34,13 +41,13 @@ struct SignupView: View {
                             .background(Color.gray)
                             .padding(.horizontal, 50)
                     }
-                    
+
                     Text("이메일")
                         .font(.system(size: 15))
                         .foregroundColor(Color(hex: "#6B6B6B"))
                         .padding(.top, 35)
                         .padding(.leading, 50)
-                    
+
                     VStack {
                         SecureField("", text: .constant(""))
                             .padding(.leading, 50)
@@ -48,13 +55,13 @@ struct SignupView: View {
                             .background(Color.gray)
                             .padding(.horizontal, 50)
                     }
-                    
+
                     Text("비밀번호")
                         .font(.system(size: 15))
                         .foregroundColor(Color(hex: "#6B6B6B"))
                         .padding(.top, 35)
                         .padding(.leading, 50)
-                    
+
                     VStack {
                         SecureField("", text: .constant(""))
                             .padding(.leading, 50)
@@ -62,13 +69,13 @@ struct SignupView: View {
                             .background(Color.gray)
                             .padding(.horizontal, 50)
                     }
-                    
+
                     Text("비밀번호 확인")
                         .font(.system(size: 15))
                         .foregroundColor(Color(hex: "#6B6B6B"))
                         .padding(.top, 35)
                         .padding(.leading, 50)
-                    
+
                     VStack {
                         SecureField("", text: .constant(""))
                             .padding(.leading, 50)
@@ -77,7 +84,7 @@ struct SignupView: View {
                             .padding(.horizontal, 50)
                     }
                 }
-                
+
                 Button(action: {
                     // action here
                 }) {
@@ -89,12 +96,12 @@ struct SignupView: View {
                         .cornerRadius(15)
                 }
                 .padding(.top, 35) // Adjusted the padding to replace the Spacer
-                
+
                 Text("이미 회원가입이 되어있나요?")
                     .foregroundColor(Color(hex: "#6B6B6B"))
                     .font(.system(size: 15))
                     .padding(.top, 20)
-                
+
                 Text("로그인 하러 가기")
                     .font(.system(size: 15))
                     .foregroundColor(Color(hex: "#34C831"))
