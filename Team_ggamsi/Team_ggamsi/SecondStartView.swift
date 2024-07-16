@@ -11,8 +11,6 @@ struct SecondStartView: View {
     var body: some View {
         ZStack {
             VStack {
-                Spacer().frame(height: 160)
-                
                 Text("상품성이 떨어지는 식품을")
                     .font(.system(size: 25))
                     .multilineTextAlignment(.center)
@@ -24,21 +22,23 @@ struct SecondStartView: View {
                         .foregroundColor(.mainColor)
                     
                     Text(" 할 수 있도록")
-                        
+                    
                 }
                 .font(.system(size: 25))
                 .multilineTextAlignment(.center)
-                
-                Spacer()
-                
+            }
+            .padding(.bottom,400)
+            
+            VStack(spacing:70) {
                 Image("shdqn")
                     .resizable()
+                    .scaledToFit()
                     .frame(width: 412, height: 274)
+                    .padding(.bottom,40)
                 
-                Spacer()
                 
                 Button(action: {
-                    // Button action here
+                    
                 }) {
                     Text("계속하기")
                         .font(.system(size: 20))
@@ -47,9 +47,10 @@ struct SecondStartView: View {
                         .background(Color.mainColor)
                         .cornerRadius(15)
                 }
-                .padding(.bottom, 40)
             }
+            .padding(.top,200)
         }
+        .padding(.bottom,50)
     }
 }
 

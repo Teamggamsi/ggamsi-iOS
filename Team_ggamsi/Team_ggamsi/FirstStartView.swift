@@ -11,8 +11,6 @@ struct FirstStartView: View {
     var body: some View {
         ZStack {
             VStack {
-                Spacer().frame(height: 160)
-                
                 Text("생산자와 소비자 개개인이")
                     .font(.system(size: 25))
                     .multilineTextAlignment(.center)
@@ -26,17 +24,18 @@ struct FirstStartView: View {
                 }
                 .font(.system(size: 25))
                 .multilineTextAlignment(.center)
-                
-                Spacer()
-                
+            }
+            .padding(.bottom, 400)
+            
+            VStack(spacing:70) {
                 Image("thqlwk")
                     .resizable()
-                    .frame(width: 319, height: 319)
-                
-                Spacer()
+                    .scaledToFit()
+                    .frame(width: 412, height: 274)
+                    .padding(.bottom,40)
                 
                 Button(action: {
-                    // Button action here
+                    
                 }) {
                     Text("계속하기")
                         .font(.system(size: 20))
@@ -45,9 +44,10 @@ struct FirstStartView: View {
                         .background(Color.mainColor)
                         .cornerRadius(15)
                 }
-                .padding(.bottom, 40)
             }
+            .padding(.top,200)
         }
+        .padding(.bottom,50)
     }
 }
 
