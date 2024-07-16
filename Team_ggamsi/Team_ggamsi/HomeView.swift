@@ -17,6 +17,45 @@ struct HomeView: View {
                     .resizable()
                     .frame(width: 394, height: 200)
                     .padding(.horizontal)
+                    .frame(width: 75, height: 47)
+                    .padding(.leading, 40)
+                    .padding(.top, 10)
+                Spacer()
+            }
+
+            Image("main")
+                .resizable()
+                .frame(width: 394, height: 200)
+                .padding(.horizontal)
+                .padding(.top, 5)
+
+            HStack(spacing: 40) {
+                VStack {
+                    ImageButton(imageName: "back")
+                    Text("채소")
+                        .font(.system(size: 10, weight: .regular))
+                }
+                VStack {
+                    ImageButton(imageName: "back")
+                    Text("과일")
+                        .font(.system(size: 10, weight: .regular))
+                }
+                VStack {
+                    ImageButton(imageName: "back")
+                    Text("해산물")
+                        .font(.system(size: 10, weight: .regular))
+                }
+                VStack {
+                    ImageButton(imageName: "back")
+                    Text("나눔")
+                        .font(.system(size: 10, weight: .regular))
+                }
+            }
+            .padding(.top, 5)
+
+            HStack {
+                Text("인기상품🏆")
+                    .font(.system(size: 17, weight: .regular))
                     .padding(.top, 5)
                 
                 HStack(spacing: 40) {
@@ -91,10 +130,10 @@ struct ProductItem: View {
                 .resizable()
                 .frame(width: 120, height: 120)
             Text("상품이름")
-                .font(.system(size: 13))
+                .font(.system(size: 13, weight: .regular))
                 .foregroundColor(Color.gray)
             Text("3000원")
-                .font(.system(size: 15))
+                .font(.system(size: 15, weight: .regular))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -105,4 +144,3 @@ struct ContentView_Previews: PreviewProvider {
         HomeView()
     }
 }
-
