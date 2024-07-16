@@ -22,29 +22,29 @@ struct HomeView: View {
                 VStack {
                     ImageButton(imageName: "back")
                     Text("채소")
-                        .font(.system(size: 10))
+                        .font(.system(size: 10, weight: .regular))
                 }
                 VStack {
                     ImageButton(imageName: "back")
                     Text("과일")
-                        .font(.system(size: 10))
+                        .font(.system(size: 10, weight: .regular))
                 }
                 VStack {
                     ImageButton(imageName: "back")
                     Text("해산물")
-                        .font(.system(size: 10))
+                        .font(.system(size: 10, weight: .regular))
                 }
                 VStack {
                     ImageButton(imageName: "back")
                     Text("나눔")
-                        .font(.system(size: 10))
+                        .font(.system(size: 10, weight: .regular))
                 }
             }
             .padding(.top, 5)
 
             HStack {
                 Text("인기상품🏆")
-                    .font(.system(size: 17))
+                    .font(.system(size: 17, weight: .regular))
                     .padding(.top, 5)
                     .padding(.leading, 36)
                 Spacer()
@@ -90,6 +90,9 @@ struct ImageButton: View {
                 .frame(width: 50, height: 50)
                 .background(Color(hex: "#F1F0F0"))
                 .cornerRadius(10)
+        }
+    }
+}
 
 struct ProductItem: View {
     var body: some View {
@@ -98,10 +101,10 @@ struct ProductItem: View {
                 .resizable()
                 .frame(width: 120, height: 120)
             Text("상품이름")
-                .font(.system(size: 13))
+                .font(.system(size: 13, weight: .regular))
                 .foregroundColor(Color.gray)
             Text("3000원")
-                .font(.system(size: 15))
+                .font(.system(size: 15, weight: .regular))
         }
         .frame(maxWidth: .infinity, alignment: .leading)  // 여기에 추가
     }
@@ -111,3 +114,4 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
     }
+}
