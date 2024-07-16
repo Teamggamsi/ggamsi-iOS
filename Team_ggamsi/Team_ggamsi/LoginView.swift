@@ -6,14 +6,26 @@
 //
 
 import SwiftUI
+import Alamofire
+
+struct LoginResponse: Codable {
+    let success: Bool
+    let token: String
+}
 
 struct LoginView: View {
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var showingHome = false
+    
+    @ObservedObject private var tokenManager = TokenManager.shared
+    
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
                     Rectangle()
-                        .frame(height:0.5)
+                        .frame(height: 0.5)
                         .foregroundColor(Color(hex: "#CECECE"))
                     Spacer()
                     VStack(alignment: .leading) {
@@ -34,9 +46,8 @@ struct LoginView: View {
                             .padding(.leading, 50)
                         
                         VStack {
-                            TextField("", text:
-                                    .constant(""))
-                            .padding(.leading, 50)
+                            TextField("", text: $email)
+                                .padding(.leading, 50)
                             Divider()
                                 .background(Color.gray)
                                 .padding(.horizontal, 50)
@@ -49,7 +60,7 @@ struct LoginView: View {
                             .padding(.leading, 50)
                         
                         VStack {
-                            SecureField("", text: .constant(""))
+                            SecureField("", text: $password)
                                 .padding(.leading, 50)
                             Divider()
                                 .background(Color.gray)
@@ -59,7 +70,7 @@ struct LoginView: View {
                     }
                     
                     Button(action: {
-
+                        login()
                     }) {
                         Text("로그인")
                             .font(.system(size: 23))
@@ -83,9 +94,39 @@ struct LoginView: View {
                     }
                     Spacer()
                 }
+                .background(
+                    NavigationLink(destination: HomeView(), isActive: $showingHome) {
+                        EmptyView()
+                    }
+                )
             }
         }
         .navigationBarBackButtonHidden()
+        .onReceive(tokenManager.$token) { token in
+            if let token = token {
+                self.showingHome = true
+            }
+        }
+    }
+    
+    func login() {
+        let parameters: [String: String] = [
+            "email": email,
+            "password": password
+        ]
+        
+        AF.request("http://43.201.116.75:8080/api/login", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default).responseDecodable(of: LoginResponse.self) { response in
+            switch response.result {
+            case .success(let loginResponse):
+                if loginResponse.success {
+                    self.tokenManager.saveToken(loginResponse.token)
+                } else {
+                    print("로그인 실패")
+                }
+            case .failure(let error):
+                print("Alamofire 오류: \(error)")
+            }
+        }
     }
 }
 

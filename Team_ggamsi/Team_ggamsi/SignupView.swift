@@ -95,7 +95,7 @@ struct SignupView: View {
                             .background(Color.mainColor)
                             .cornerRadius(15)
                     }
-                    .padding(.top, 35) // Adjusted the padding to replace the Spacer
+                    .padding(.top, 35)
                     
                     Text("이미 회원가입이 되어있나요?")
                         .foregroundColor(Color(hex: "#6B6B6B"))
