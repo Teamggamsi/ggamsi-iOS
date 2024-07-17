@@ -16,7 +16,7 @@ struct TabbarView: View {
                         Image(systemName: "house.fill")
                         Text("홈")
                     }
-                HomeView()
+                SellWriteView()
                     .tabItem {
                         Image(systemName: "square.and.pencil")
                         Text("판매")

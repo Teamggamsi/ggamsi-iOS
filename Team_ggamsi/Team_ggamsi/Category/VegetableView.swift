@@ -44,6 +44,7 @@ struct VegetableView: View {
                 fetchProducts()
             }
         }
+        .navigationBarBackButtonHidden()
     }
     
     private func fetchProducts() {

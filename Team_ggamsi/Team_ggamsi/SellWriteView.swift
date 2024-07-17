@@ -31,7 +31,7 @@ struct SellWriteView: View {
                         )
                         .cornerRadius(10)
                         .padding(.leading, 23)
-                        .padding(.bottom, 30)
+                        .padding(.bottom, 10)
                         .padding(.top, 10)
                 }
                 
@@ -156,7 +156,7 @@ struct SellWriteView: View {
                         .font(.system(size: 23, weight: .regular))
                 })
                 .padding(.leading, 45)
-                .padding(.top, 30)
+                .padding(.top, 10)
             }
         }
     }
