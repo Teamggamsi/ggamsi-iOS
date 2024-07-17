@@ -12,7 +12,7 @@ struct FirstStartView: View {
         ZStack {
             VStack {
                 Text("생산자와 소비자 개개인이")
-                    .font(.system(size: 25))
+                    .font(.system(size: 25, weight: .regular))
                     .multilineTextAlignment(.center)
                 
                 HStack(spacing: 0) {
