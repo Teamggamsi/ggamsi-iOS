@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct VegetableView: View {
+struct InterestProductView: View {
     @State private var searchText = ""
 
     var body: some View {
         VStack {
-            Text("채소")
+            Text("관심상품")
                 .font(.system(size:20))
                 .padding(.top, 10)
                 .multilineTextAlignment(.center)
@@ -35,8 +35,8 @@ struct VegetableView: View {
                 LazyVStack {
                     ForEach(1...10, id: \.self) { i in
                         HStack {
-                            ProductItem2()
-                            ProductItem2()
+                            ProductItem4()
+                            ProductItem4()
                         }
                     }
                     .padding(.leading, 36)
@@ -48,14 +48,14 @@ struct VegetableView: View {
     }
 }
 
-struct ProductItem2: View {
+struct ProductItem4: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Image("apple")
+            Image("brocole")
                 .resizable()
                 .cornerRadius(10)
                 .frame(width: 140, height: 140)
-            Text("상품이름")
+            Text("브라콜리")
                 .font(.system(size: 13))
                 .foregroundColor(Color.gray)
             Text("3000원")
@@ -66,5 +66,5 @@ struct ProductItem2: View {
 }
 
 #Preview {
-    VegetableView()
+    InterestProductView()
 }

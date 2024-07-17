@@ -105,8 +105,9 @@ struct HomeView: View {
                         }
                         .padding(.leading, 38)
                     }
-
-                } .frame(height: 350)
+                    
+                }
+                .frame(height: 350)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.bottom,40)
