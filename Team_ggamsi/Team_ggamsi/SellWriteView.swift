@@ -65,6 +65,7 @@ struct SellWriteView: View {
                     .padding(.leading, 31)
                     .overlay(
                         TextField("", text: $explanation)
+                            .font(.system(size: 13, weight: .regular))
                             .padding(.leading, 50)
                             .padding(.bottom, 65)
                     )
@@ -124,7 +125,6 @@ struct SellWriteView: View {
                     .font(.system(size: 13, weight: .regular))
                     .padding(.leading, 29)
                     .padding(.top, 15)
-                
                 ZStack(alignment: .leading) {
                     if boxprice == 0 {
                         Text("₩ 택배비")
