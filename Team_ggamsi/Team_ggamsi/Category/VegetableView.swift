@@ -7,6 +7,8 @@ struct VegetableView: View {
     @State private var products: [Product] = []
     var category: String
     
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -43,6 +45,12 @@ struct VegetableView: View {
             .onAppear {
                 fetchProducts()
             }
+            .navigationBarItems(leading: Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "arrow.left")
+                    .foregroundColor(.black)
+            })
         }
         .navigationBarBackButtonHidden()
     }

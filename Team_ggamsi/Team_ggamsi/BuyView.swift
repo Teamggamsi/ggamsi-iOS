@@ -5,90 +5,117 @@ struct BuyView: View {
     @State private var isTouch: Bool = false
     @State private var isPresented: Bool = false
     
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            Rectangle()
-                .foregroundColor(.clear)
-                .frame(width: 393, height: 360)
-                .background(
-                    AsyncImage(url: URL(string: product.image)) { image in
-                        image.resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 393, height: 360)
-                            .clipped()
-                    } placeholder: {
-                        ProgressView()
+        NavigationView {
+            VStack(alignment: .leading) {
+                Rectangle()
+                    .foregroundColor(.clear)
+                    .frame(width: 393, height: 360)
+                    .background(
+                        AsyncImage(url: URL(string: product.image)) { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 393, height: 360)
+                                .clipped()
+                        } placeholder: {
+                            ProgressView()
+                        }
+                    )
+                
+                Text(product.title)
+                    .font(.system(size: 22, weight: .regular))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+                    .padding(.leading, 25)
+                    .padding(.top, 10)
+                
+                Text("\(product.price ?? 0) 원")
+                    .font(.system(size: 25, weight: .medium))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+                    .padding(.leading, 22)
+                    .padding(.top, 1)
+                
+                Rectangle()
+                    .foregroundColor(.clear)
+                    .frame(width: 393, height: 10)
+                    .background(Color(hex: "D9D9D9"))
+                    .padding(.top, 10)
+                
+                if isTouch {
+                    HStack(spacing: 61) {
+                        VStack {
+                            Text("상세정보")
+                            Rectangle()
+                                .frame(width: 142, height: 1)
+                        }
+                        VStack {
+                            Text("상점정보/후기")
+                        }
                     }
-                )
-            
-            Text(product.title)
-                .font(.system(size: 22, weight: .regular))
-                .multilineTextAlignment(.center)
-                .foregroundColor(.black)
-                .padding(.leading, 25)
-                .padding(.top, 10)
-            
-            Text("\(product.price ?? 0) 원")
-                .font(.system(size: 25, weight: .medium))
-                .multilineTextAlignment(.center)
-                .foregroundColor(.black)
-                .padding(.leading, 22)
-                .padding(.top, 1)
-            
-            Rectangle()
-                .foregroundColor(.clear)
-                .frame(width: 393, height: 10)
-                .background(Color(hex: "D9D9D9"))
-                .padding(.top, 10)
-            
-            if isTouch {
-                HStack(spacing: 61) {
-                    VStack {
-                        Text("상세정보")
-                        Rectangle()
-                            .frame(width: 142, height: 1)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .onTapGesture {
+                        isTouch = false
                     }
-                    VStack {
-                        Text("상점정보/후기")
+                } else {
+                    HStack(spacing: 61) {
+                        VStack {
+                            Text("상세정보")
+                        }
+                        VStack {
+                            Text("상점정보/후기")
+                            Rectangle()
+                                .frame(width: 142, height: 1)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .onTapGesture {
+                        isTouch = true
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                .onTapGesture {
-                    isTouch = false
+                
+                Button(action: {
+                    isPresented.toggle()
+                }) {
+                    Text("구매하기")
+                        .font(.system(size: 24, weight: .regular))
+                        .foregroundColor(.white)
+                        .frame(width: 302, height: 63)
+                        .background(Color(hex: "34C831"))
+                        .cornerRadius(15)
+                        .padding(.leading, 45)
                 }
-            } else {
-                HStack(spacing: 61) {
-                    VStack {
-                        Text("상세정보")
-                    }
-                    VStack {
-                        Text("상점정보/후기")
-                        Rectangle()
-                            .frame(width: 142, height: 1)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                .onTapGesture {
-                    isTouch = true
-                }
+                .padding(.top,135)
             }
-            
-            Button(action: {
-                isPresented.toggle()
-            }) {
-                Text("구매하기")
-                    .font(.system(size: 24, weight: .regular))
+            .padding(.bottom,130)
+            .modal(isPresented: $isPresented) {
+                Rectangle()
+                    .frame(width: 360,height: 100)
                     .foregroundColor(.white)
-                    .frame(width: 302, height: 63)
-                    .background(Color(hex: "34C831"))
-                    .cornerRadius(15)
-                    .padding(.leading, 45)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke()
+                            .foregroundColor(.gray)
+                            .overlay(
+                                VStack(alignment: .leading) {
+                                    Text(product.title)
+                                    Text("\(product.price ?? 0) 원")
+                                    
+                                }
+                            )
+                    )
             }
+            .navigationBarItems(leading: Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "arrow.left")
+                    .foregroundColor(.black)
+            })
         }
-        .modal(isPresented: $isPresented) {
-            Text("Hello")
-                .frame(height: 500)
-        }
+        .navigationBarBackButtonHidden()
     }
 }
 

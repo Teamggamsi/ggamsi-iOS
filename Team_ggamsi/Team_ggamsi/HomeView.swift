@@ -22,7 +22,6 @@ struct HomeView: View {
                     .padding(.horizontal)
                     .padding(.top, 5)
                 
-                // Category Section
                 HStack(spacing: 40) {
                     NavigationLink(destination: VegetableView(category: "채소")) {
                         VStack {
