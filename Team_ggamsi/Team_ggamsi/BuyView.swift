@@ -44,40 +44,43 @@ struct BuyView: View {
                     .frame(width: 393, height: 10)
                     .background(Color(hex: "D9D9D9"))
                     .padding(.top, 10)
-                
-                if isTouch {
-                    HStack(spacing: 61) {
-                        VStack {
-                            Text("상세정보")
-                            Rectangle()
-                                .frame(width: 142, height: 1)
+                    if isTouch {
+                        HStack(spacing: 61) {
+                            VStack {
+                                Text("상세정보")
+                                Rectangle()
+                                    .frame(width: 142, height: 1)
+                            }
+                            VStack {
+                                Text("상점정보/후기")
+                            }
                         }
-                        VStack {
-                            Text("상점정보/후기")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .onTapGesture {
+                            withAnimation(.spring()) {
+                                isTouch = false
+                            }
                         }
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .onTapGesture {
-                        isTouch = false
-                    }
-                    .padding(.top,10)
-                } else {
-                    HStack(spacing: 61) {
-                        VStack {
-                            Text("상세정보")
+                        .padding(.top,10)
+                    } else {
+                        HStack(spacing: 61) {
+                            VStack {
+                                Text("상세정보")
+                            }
+                            VStack {
+                                Text("상점정보/후기")
+                                Rectangle()
+                                    .frame(width: 142, height: 1)
+                            }
                         }
-                        VStack {
-                            Text("상점정보/후기")
-                            Rectangle()
-                                .frame(width: 142, height: 1)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .onTapGesture {
+                            withAnimation(.spring()) {
+                                isTouch = true
+                            }
                         }
+                        .padding(.top,10)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .onTapGesture {
-                        isTouch = true
-                    }
-                    .padding(.top,10)
-                }
                 
                 Button(action: {
                     isPresented.toggle()
@@ -162,7 +165,7 @@ struct BuyView: View {
                                 .font(.system(size: 15, weight: .regular))
                         }
                         Spacer()
-                        Text("총 \(product.price ?? 0 * isBuyCount)원")
+                        Text("총 \((product.price ?? 0) * isBuyCount)원")
                     }
                     .padding(.bottom,30)
                     NavigationLink(destination: PayView(productImage: product.image, productName: product.title, productQuantity: isBuyCount, productPrice: product.price ?? 0)) {

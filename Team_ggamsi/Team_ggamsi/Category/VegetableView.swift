@@ -19,7 +19,11 @@ struct VegetableView: View {
                 
                 SearchBarView(searchText: $searchText, onSearchButtonClicked: {
                     print("Search button pressed")
-                    fetchProducts()
+                    if searchText.isEmpty {
+                        fetchProducts()
+                    } else {
+                        searchProducts()
+                    }
                 })
                 .padding(.bottom, 20)
                 
@@ -70,6 +74,22 @@ struct VegetableView: View {
                 }
             }
     }
+    
+    private func searchProducts() {
+        let parameters: [String: Any] = ["category": category, "search": searchText]
+        
+        AF.request("\(api)/product/search", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseDecodable(of: ProductResponse.self) { response in
+                switch response.result {
+                case .success(let productResponse):
+                    self.products = productResponse.data
+                    self.isLoading = false
+                case .failure(let error):
+                    print(error)
+                    self.isLoading = false
+                }
+            }
+    }
 }
 
 struct Product: Identifiable, Decodable {
@@ -93,7 +113,7 @@ struct ProductItem2: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            AsyncImage(url: URL(string: product.image)) {image in
+            AsyncImage(url: URL(string: product.image)) { image in
                 image.resizable()
             } placeholder: {
                 ProgressView()
@@ -121,7 +141,7 @@ struct SearchBarView: View {
         HStack {
             TextField("검색", text: $searchText)
                 .padding(.leading, 10)
-                .frame(width: 341, height: 45)
+                .frame(height: 45)
                 .background(Color(hex: "#F4F4F4"))
                 .cornerRadius(10)
                 .overlay(
@@ -137,6 +157,7 @@ struct SearchBarView: View {
                     }
                 )
         }
+        .frame(width: 341)
     }
 }
 

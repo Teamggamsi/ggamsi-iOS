@@ -14,6 +14,8 @@ struct SellWriteView: View {
     @State private var isImagePickerPresented: Bool = false // ImagePicker 표시 여부
     @State private var selectedCategoryIndex: Int? = nil // Index of the selected category
     
+    @FocusState var focus
+    
     let categories = ["채소", "과일", "해산물", "나눔"]
 
     var body: some View {
@@ -80,7 +82,11 @@ struct SellWriteView: View {
                             .font(.system(size: 13, weight: .regular))
                             .padding(.leading, 50)
                             .padding(.bottom, 65)
+                            .focused($focus)
                     )
+                    .onTapGesture {
+                        focus.toggle()
+                    }
                 
                 Text("태그")
                     .font(.system(size: 13, weight: .regular))
@@ -196,22 +202,21 @@ struct SellWriteView: View {
             },
             to: "http://43.201.116.75:8080/api/cdn/upload",
             method: .post
-        ).responseJSON { response in
-            switch response.result {
+        )
+        .responseDecodable(of: UploadDTO.self) { result in
+            switch result.result {
             case .success(let value):
-                if let responseDict = value as? [String: Any], let imageUrl = responseDict["imageUrl"] as? String {
-                    self.imageURL = imageUrl
-                    self.postProduct(imageUrl: imageUrl)
-                }
+                imageURL = value.url
+                postProduct(imageUrl: imageURL)
             case .failure(let error):
-                print("Error uploading image: \(error)")
+                print(error)
             }
         }
     }
     
     func postProduct(imageUrl: String) {
         let parameters: [String: Any] = [
-            "token": "\(TokenManager.shared)",
+            "token": TokenManager.shared.getToken(),
             "title": productname,
             "delivery": boxprice,
             "price": price,
@@ -220,15 +225,17 @@ struct SellWriteView: View {
             "category": category
         ]
         
-        AF.request("http://43.201.116.75:8080/api/product/post", method: .post, parameters: parameters)
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    print("Product posted successfully: \(value)")
-                case .failure(let error):
-                    print("Error posting product: \(error)")
-                }
-            }
+        print(parameters)
+        AF.request(
+            "http://43.201.116.75:8080/api/product/post", 
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
+            headers: ["Content-Type": "application/json"]
+        )
+        .response { response in
+            print(response.response?.statusCode)
+        }
     }
 }
 
@@ -270,4 +277,8 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 #Preview {
     SellWriteView()
+}
+
+struct UploadDTO: Decodable {
+    let url: String
 }

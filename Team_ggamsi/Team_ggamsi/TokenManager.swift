@@ -25,8 +25,11 @@ class TokenManager: ObservableObject {
         self.token = token
     }
     
-    func getToken() -> String? {
-        return token
+    func getToken() -> String {
+        if let token = token {
+            return token
+        }
+        return ""
     }
     
     func deleteToken() {

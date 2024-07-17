@@ -21,12 +21,13 @@ struct TabbarView: View {
                         Image(systemName: "square.and.pencil")
                         Text("판매")
                     }
-                HomeView()
+                SearchView()
                     .tabItem {
                         Image(systemName: "magnifyingglass")
                         Text("검색")
                     }
             }
+            .background(.white)
             .accentColor(Color(hex: "#34C831"))
         }
         .navigationBarBackButtonHidden()
