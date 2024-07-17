@@ -21,6 +21,7 @@
 		4D91D7772C46886400E25C3A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4D91D7762C46886400E25C3A /* Alamofire */; };
 		4D91D7792C46887700E25C3A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91D7782C46887700E25C3A /* HomeView.swift */; };
 		4D91D77B2C4688A900E25C3A /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91D77A2C4688A900E25C3A /* TokenManager.swift */; };
+		744274EF2C47C43E00A1CAA1 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744274EE2C47C43E00A1CAA1 /* SearchView.swift */; };
 		746782CE2C464D6100E3FB87 /* FirstStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746782CD2C464D6100E3FB87 /* FirstStartView.swift */; };
 		74B11D522C4780D600503B6F /* BuyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B11D512C4780D600503B6F /* BuyView.swift */; };
 		74B11D542C4789BF00503B6F /* PayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B11D532C4789BF00503B6F /* PayView.swift */; };
@@ -44,6 +45,7 @@
 		4D91D7782C46887700E25C3A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4D91D77A2C4688A900E25C3A /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		4D91D77C2C468C5100E25C3A /* Team-ggamsi-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Team-ggamsi-Info.plist"; sourceTree = SOURCE_ROOT; };
+		744274EE2C47C43E00A1CAA1 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		746782CD2C464D6100E3FB87 /* FirstStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstStartView.swift; sourceTree = "<group>"; };
 		74B11D512C4780D600503B6F /* BuyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyView.swift; sourceTree = "<group>"; };
 		74B11D532C4789BF00503B6F /* PayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayView.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				4D91D77A2C4688A900E25C3A /* TokenManager.swift */,
 				4D91D7782C46887700E25C3A /* HomeView.swift */,
 				4D638B492C47504500B8A864 /* SellWriteView.swift */,
+				744274EE2C47C43E00A1CAA1 /* SearchView.swift */,
 				74B11D512C4780D600503B6F /* BuyView.swift */,
 				74B11D532C4789BF00503B6F /* PayView.swift */,
 				4D91D75F2C45F71900E25C3A /* ContentView.swift */,
@@ -215,6 +218,7 @@
 				4D91D7722C4672BA00E25C3A /* LoginView.swift in Sources */,
 				74E0CC3F2C4653E200649AF5 /* ThirdStartView.swift in Sources */,
 				4D638B4A2C47504500B8A864 /* SellWriteView.swift in Sources */,
+				744274EF2C47C43E00A1CAA1 /* SearchView.swift in Sources */,
 				4D91D7602C45F71900E25C3A /* ContentView.swift in Sources */,
 				4D638B442C47404A00B8A864 /* TabbarView.swift in Sources */,
 				74B11D542C4789BF00503B6F /* PayView.swift in Sources */,
