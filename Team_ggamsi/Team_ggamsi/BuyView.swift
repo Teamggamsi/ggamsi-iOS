@@ -4,6 +4,7 @@ struct BuyView: View {
     let product: Product
     @State private var isTouch: Bool = false
     @State private var isPresented: Bool = false
+    @State private var isBuyCount: Int = 1
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -59,6 +60,7 @@ struct BuyView: View {
                     .onTapGesture {
                         isTouch = false
                     }
+                    .padding(.top,10)
                 } else {
                     HStack(spacing: 61) {
                         VStack {
@@ -74,6 +76,7 @@ struct BuyView: View {
                     .onTapGesture {
                         isTouch = true
                     }
+                    .padding(.top,10)
                 }
                 
                 Button(action: {
@@ -91,22 +94,87 @@ struct BuyView: View {
             }
             .padding(.bottom,130)
             .modal(isPresented: $isPresented) {
-                Rectangle()
-                    .frame(width: 360,height: 100)
-                    .foregroundColor(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke()
-                            .foregroundColor(.gray)
-                            .overlay(
-                                VStack(alignment: .leading) {
-                                    Text(product.title)
-                                    Text("\(product.price ?? 0) 원")
-                                    
-                                }
-                            )
-                    )
+                VStack {
+                    Rectangle()
+                        .frame(width: 360,height: 100)
+                        .foregroundColor(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke()
+                                .foregroundColor(.gray)
+                                .overlay(
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            Text(product.title)
+                                                .font(.system(size: 17, weight: .regular))
+                                            Text("무료배송")
+                                                .font(.system(size: 15, weight: .regular))
+                                            HStack {
+                                                Button {
+                                                    if isBuyCount > 0 {
+                                                        isBuyCount -= 1
+                                                    }
+                                                } label: {
+                                                    Rectangle()
+                                                        .frame(width:23,height: 23)
+                                                        .cornerRadius(100)
+                                                        .foregroundColor(Color(hex: "#D9D9D9"))
+                                                        .overlay {
+                                                            Text("-")
+                                                                .foregroundColor(.black)
+                                                        }
+                                                }
+                                                Text("\(isBuyCount)")
+                                                    .font(.system(size: 15, weight: .regular))
+                                                Button {
+                                                    isBuyCount += 1
+                                                } label: {
+                                                    Rectangle()
+                                                        .frame(width:23,height: 23)
+                                                        .cornerRadius(100)
+                                                        .foregroundColor(Color(hex: "#D9D9D9"))
+                                                        .overlay {
+                                                            Text("+")
+                                                                .foregroundColor(.black)
+                                                        }
+                                                }
+                                            }
+                                        }
+                                        Spacer()
+                                            .frame(width:175)
+                                        Text("\(product.price ?? 0 * isBuyCount)원")
+                                            .font(.system(size: 22, weight: .semibold))
+                                            .padding(.top, 50)
+                                    }
+                                )
+                        }
+                    Spacer()
+                        .frame(height: 300)
+                    Divider()
+                    HStack {
+                        HStack(spacing: 0) {
+                            Text("\(isBuyCount)")
+                                .foregroundColor(.black)
+                                .font(.system(size: 15, weight: .regular))
+                            Text("개 선택")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15, weight: .regular))
+                        }
+                        Spacer()
+                        Text("총 \(product.price ?? 0 * isBuyCount)원")
+                    }
+                    .padding(.bottom,30)
+                    NavigationLink(destination: PayView(productImage: product.image, productName: product.title, productQuantity: isBuyCount, productPrice: product.price ?? 0)) {
+                        Text("구매하기")
+                            .font(.system(size: 24, weight: .regular))
+                            .foregroundColor(.white)
+                            .frame(width: 302, height: 63)
+                            .background(Color(hex: "34C831"))
+                            .cornerRadius(15)
+                    }
+                    .padding(.bottom,100)
+                }
             }
             .navigationBarItems(leading: Button(action: {
                 presentationMode.wrappedValue.dismiss()

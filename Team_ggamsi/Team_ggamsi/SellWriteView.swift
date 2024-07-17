@@ -1,12 +1,20 @@
 import SwiftUI
+import Alamofire
 
 struct SellWriteView: View {
+    @State private var selectedImage: UIImage?
+    @State private var imageURL: String = ""
     
     @State private var productname: String = ""
     @State private var category: String = ""
     @State private var explanation: String = ""
     @State private var price: Int = 0
     @State private var boxprice: Int = 0
+
+    @State private var isImagePickerPresented: Bool = false // ImagePicker 표시 여부
+    @State private var selectedCategoryIndex: Int? = nil // Index of the selected category
+    
+    let categories = ["채소", "과일", "해산물", "나눔"]
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -20,19 +28,23 @@ struct SellWriteView: View {
                     .padding(.leading, 20)
                 
                 Button(action: {
-
+                    isImagePickerPresented.toggle()
                 }) {
                     Rectangle()
                         .frame(width: 53, height: 53)
                         .foregroundColor(Color(hex: "#D9D9D9"))
-                        .overlay(
-                            Image(systemName: "camera.fill")
-                                .foregroundColor(.black)
-                        )
                         .cornerRadius(10)
                         .padding(.leading, 23)
                         .padding(.bottom, 10)
                         .padding(.top, 10)
+                        .overlay {
+                            Image(systemName: "camera.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(.black)
+                                .padding(.leading, 23)
+                        }
                 }
                 
                 TextField("상품명", text: $productname)
@@ -76,12 +88,16 @@ struct SellWriteView: View {
                     .padding(.top, 5)
                 
                 HStack(spacing: 13) {
-                    ForEach(0..<4) { _ in
-                        Button(action: {}) {
-                            Text("")
+                    ForEach(0..<categories.count, id: \.self) { index in
+                        Button(action: {
+                            category = categories[index]
+                            selectedCategoryIndex = index
+                        }) {
+                            Text(categories[index])
                                 .foregroundColor(.black)
-                                .frame(width: 41, height: 16)
-                                .background(Color(hex: "B6F0B5"))
+                                .font(.system(size: 15, weight: .regular))
+                                .frame(width: 80, height: 25)
+                                .background(selectedCategoryIndex == index ? Color(hex: "34C831") : Color(hex: "B6F0B5"))
                                 .cornerRadius(20)
                         }
                     }
@@ -125,6 +141,7 @@ struct SellWriteView: View {
                     .font(.system(size: 13, weight: .regular))
                     .padding(.leading, 29)
                     .padding(.top, 15)
+                
                 ZStack(alignment: .leading) {
                     if boxprice == 0 {
                         Text("₩ 택배비")
@@ -147,7 +164,11 @@ struct SellWriteView: View {
                     .background(Color.gray)
                     .padding(.horizontal, 40)
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    if let image = selectedImage {
+                        uploadImage(image)
+                    }
+                }, label: {
                     Text("추가하기")
                         .frame(width: 302, height: 63)
                         .foregroundColor(.white)
@@ -157,7 +178,92 @@ struct SellWriteView: View {
                 })
                 .padding(.leading, 45)
                 .padding(.top, 10)
+                .sheet(isPresented: $isImagePickerPresented) {
+                    ImagePicker(selectedImage: $selectedImage, uploadAction: uploadImage)
+                }
             }
+        }
+    }
+    
+    func uploadImage(_ image: UIImage) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            return
+        }
+
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imageData, withName: "file", fileName: "file.jpg", mimeType: "image/jpeg")
+            },
+            to: "http://43.201.116.75:8080/api/cdn/upload",
+            method: .post
+        ).responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                if let responseDict = value as? [String: Any], let imageUrl = responseDict["imageUrl"] as? String {
+                    self.imageURL = imageUrl
+                    self.postProduct(imageUrl: imageUrl)
+                }
+            case .failure(let error):
+                print("Error uploading image: \(error)")
+            }
+        }
+    }
+    
+    func postProduct(imageUrl: String) {
+        let parameters: [String: Any] = [
+            "token": "\(TokenManager.shared)",
+            "title": productname,
+            "delivery": boxprice,
+            "price": price,
+            "content": explanation,
+            "img": imageUrl,
+            "category": category
+        ]
+        
+        AF.request("http://43.201.116.75:8080/api/product/post", method: .post, parameters: parameters)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    print("Product posted successfully: \(value)")
+                case .failure(let error):
+                    print("Error posting product: \(error)")
+                }
+            }
+    }
+}
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var selectedImage: UIImage?
+    var uploadAction: (UIImage) -> Void
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self, uploadAction: uploadAction)
+    }
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        picker.allowsEditing = false // 편집 허용 여부
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        let parent: ImagePicker
+        let uploadAction: (UIImage) -> Void
+
+        init(_ parent: ImagePicker, uploadAction: @escaping (UIImage) -> Void) {
+            self.parent = parent
+            self.uploadAction = uploadAction
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let uiImage = info[.originalImage] as? UIImage {
+                parent.selectedImage = uiImage
+                uploadAction(uiImage)
+            }
+            picker.dismiss(animated: true, completion: nil)
         }
     }
 }
