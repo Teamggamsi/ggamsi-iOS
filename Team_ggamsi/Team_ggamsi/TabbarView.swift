@@ -22,15 +22,11 @@ struct TabbarView: View {
                 }
             HomeView()
                 .tabItem { 
-                    Image(systemName: "heart")
-                    Text("찜")
-                }
-            HomeView()
-                .tabItem {
-                    Image(systemName: "person")
-                    Text("내 정보")
+                    Image(systemName: "magnifyingglass")
+                    Text("검색")
                 }
         }
+        .accentColor(Color(hex: "#34C831"))
     }
 }
 

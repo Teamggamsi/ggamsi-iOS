@@ -20,7 +20,7 @@ struct SellWriteView: View {
                     .padding(.leading, 20)
                 
                 Button(action: {
-                    // 카메라 버튼 액션
+
                 }) {
                     Rectangle()
                         .frame(width: 53, height: 53)
