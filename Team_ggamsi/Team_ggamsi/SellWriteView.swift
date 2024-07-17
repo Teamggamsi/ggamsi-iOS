@@ -14,6 +14,19 @@ struct SellWriteView: View {
         VStack(alignment:.leading) {
             Text("상품정보")
                 .font(.system(size: 17, weight: .regular))
+            Button(action: {
+                
+            }) {
+                Rectangle()
+                    .frame(width:53,height: 53)
+                    .foregroundColor(Color(hex: "#D9D9D9"))
+                    .overlay (
+                        Image(systemName: "camera.fill")
+                            .foregroundColor(.black)
+                    )
+            }
+            Divider()
+                .frame(width:330)
         }
     }
 }
