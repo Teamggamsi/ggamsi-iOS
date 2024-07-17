@@ -122,7 +122,7 @@ struct SearchBarView: View {
             TextField("검색", text: $searchText)
                 .padding(.leading, 10)
                 .frame(width: 341, height: 45)
-                .background(Color(hex: "#D9D9D9"))
+                .background(Color(hex: "#F4F4F4"))
                 .cornerRadius(10)
                 .overlay(
                     HStack {
