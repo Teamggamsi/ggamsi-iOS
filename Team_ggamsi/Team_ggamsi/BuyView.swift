@@ -3,6 +3,7 @@ import SwiftUI
 struct BuyView: View {
     let product: Product
     @State private var isTouch: Bool = false
+    @State private var isPresented: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -72,7 +73,9 @@ struct BuyView: View {
                 }
             }
             
-            Button(action: {}) {
+            Button(action: {
+                isPresented.toggle()
+            }) {
                 Text("구매하기")
                     .font(.system(size: 24, weight: .regular))
                     .foregroundColor(.white)
@@ -81,6 +84,10 @@ struct BuyView: View {
                     .cornerRadius(15)
                     .padding(.leading, 45)
             }
+        }
+        .modal(isPresented: $isPresented) {
+            Text("Hello")
+                .frame(height: 500)
         }
     }
 }
