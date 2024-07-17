@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4D638B442C47404A00B8A864 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D638B432C47404A00B8A864 /* TabbarView.swift */; };
 		4D638B472C4748C800B8A864 /* VegetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D638B462C4748C800B8A864 /* VegetableView.swift */; };
+		4D638B4A2C47504500B8A864 /* SellWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D638B492C47504500B8A864 /* SellWriteView.swift */; };
 		4D91D75E2C45F71900E25C3A /* Team_ggamsiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91D75D2C45F71900E25C3A /* Team_ggamsiApp.swift */; };
 		4D91D7602C45F71900E25C3A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91D75F2C45F71900E25C3A /* ContentView.swift */; };
 		4D91D7622C45F71A00E25C3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D91D7612C45F71A00E25C3A /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		4D638B432C47404A00B8A864 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		4D638B462C4748C800B8A864 /* VegetableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetableView.swift; sourceTree = "<group>"; };
+		4D638B492C47504500B8A864 /* SellWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellWriteView.swift; sourceTree = "<group>"; };
 		4D91D75A2C45F71900E25C3A /* Team_ggamsi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Team_ggamsi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D91D75D2C45F71900E25C3A /* Team_ggamsiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_ggamsiApp.swift; sourceTree = "<group>"; };
 		4D91D75F2C45F71900E25C3A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				4D638B432C47404A00B8A864 /* TabbarView.swift */,
 				4D91D77A2C4688A900E25C3A /* TokenManager.swift */,
 				4D91D7782C46887700E25C3A /* HomeView.swift */,
+				4D638B492C47504500B8A864 /* SellWriteView.swift */,
 				4D91D75F2C45F71900E25C3A /* ContentView.swift */,
 				746782CD2C464D6100E3FB87 /* FirstStartView.swift */,
 				74E0CC3C2C46507B00649AF5 /* SecondStartView.swift */,
@@ -197,6 +200,7 @@
 				74E0CC392C464F0600649AF5 /* ColorExtentsion.swift in Sources */,
 				4D91D7722C4672BA00E25C3A /* LoginView.swift in Sources */,
 				74E0CC3F2C4653E200649AF5 /* ThirdStartView.swift in Sources */,
+				4D638B4A2C47504500B8A864 /* SellWriteView.swift in Sources */,
 				4D91D7602C45F71900E25C3A /* ContentView.swift in Sources */,
 				4D638B442C47404A00B8A864 /* TabbarView.swift in Sources */,
 				4D91D7742C46731700E25C3A /* SignupView.swift in Sources */,

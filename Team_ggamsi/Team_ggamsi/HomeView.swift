@@ -84,7 +84,7 @@ struct HomeView: View {
                         }
                     }
                 }
-                .padding(.top, 10)
+                .padding(.top, 20)
                 
                 HStack {
                     Text("인기상품🏆")
@@ -93,19 +93,23 @@ struct HomeView: View {
                         .padding(.leading, 36)
                     Spacer()
                 }
+                .padding(.top,5)
                 
-                VStack(spacing: 20) {
-                    ForEach(0..<2) { _ in
-                        HStack() {
-                            ProductItem()
-                            ProductItem()
+                ScrollView(.horizontal) {
+                    LazyHStack {
+                        ForEach(1...10, id: \.self) { i in
+                            VStack {
+                                ProductItem()
+                                ProductItem()
+                            }
                         }
+                        .padding(.leading, 38)
                     }
-                }
-                .padding(.leading, 36)
+
+                } .frame(height: 350)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(.bottom,50)
+            .padding(.bottom,40)
         }
         .navigationBarBackButtonHidden()
     }
@@ -129,11 +133,12 @@ struct ImageButton: View {
 
 struct ProductItem: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading) {
             Image("apple")
                 .resizable()
                 .frame(width: 120, height: 120)
-            Text("상품이름")
+                .cornerRadius(5)
+            Text("이뻐지고 싶사과")
                 .font(.system(size: 13))
                 .foregroundColor(Color.gray)
             Text("3000원")
