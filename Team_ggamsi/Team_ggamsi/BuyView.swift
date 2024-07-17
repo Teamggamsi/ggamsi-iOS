@@ -1,36 +1,33 @@
-//
-//  BuyView.swift
-//  Team_ggamsi
-//
-//  Created by dgsw8th65 on 7/17/24.
-//
-
 import SwiftUI
 
 struct BuyView: View {
-    
+    let product: Product
     @State private var isTouch: Bool = false
+    
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             Rectangle()
                 .foregroundColor(.clear)
                 .frame(width: 393, height: 360)
                 .background(
-                    Image("onion")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 393, height: 360)
-                        .clipped()
+                    AsyncImage(url: URL(string: product.image)) { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 393, height: 360)
+                            .clipped()
+                    } placeholder: {
+                        ProgressView()
+                    }
                 )
             
-            Text("양파")
+            Text(product.title)
                 .font(.system(size: 22, weight: .regular))
                 .multilineTextAlignment(.center)
                 .foregroundColor(.black)
                 .padding(.leading, 25)
                 .padding(.top, 10)
             
-            Text("10,000원")
+            Text("\(product.price ?? 0) 원")
                 .font(.system(size: 25, weight: .medium))
                 .multilineTextAlignment(.center)
                 .foregroundColor(.black)
@@ -43,12 +40,10 @@ struct BuyView: View {
                 .background(Color(hex: "D9D9D9"))
                 .padding(.top, 10)
             
-            
             if isTouch {
                 HStack(spacing: 61) {
-                    
                     VStack {
-                        Text("상세정보")                 
+                        Text("상세정보")
                         Rectangle()
                             .frame(width: 142, height: 1)
                     }
@@ -62,7 +57,6 @@ struct BuyView: View {
                 }
             } else {
                 HStack(spacing: 61) {
-                    
                     VStack {
                         Text("상세정보")
                     }
@@ -77,22 +71,20 @@ struct BuyView: View {
                     isTouch = true
                 }
             }
-        
-        
-        Button(action: {}) {
-            Text("구매하기")
-                .font(.system(size: 24, weight: .regular))
-                .foregroundColor(.white)
-                .frame(width: 302, height: 63)
-                .background(Color(hex: "34C831"))
-                .cornerRadius(15)
-                .padding(.leading, 45)
+            
+            Button(action: {}) {
+                Text("구매하기")
+                    .font(.system(size: 24, weight: .regular))
+                    .foregroundColor(.white)
+                    .frame(width: 302, height: 63)
+                    .background(Color(hex: "34C831"))
+                    .cornerRadius(15)
+                    .padding(.leading, 45)
+            }
         }
-        
     }
-}
 }
 
 #Preview {
-    BuyView()
+    BuyView(product: Product(id: 1, title: "테스트", content: "테스트입니다.", delivery: 0, price: 1000, category: "테스트", image: "http://43.201.116.75:8080/api/cdn/images/209dc7c7aa3774fe316a9a50", author: "이채소"))
 }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PayView: View {
     var body: some View {
-        
             Text("주문서 작성")
                 .font(.system(size: 20, weight: .regular))
                 .multilineTextAlignment(.center)

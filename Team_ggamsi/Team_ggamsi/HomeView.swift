@@ -2,7 +2,7 @@ import SwiftUI
 import Alamofire
 
 struct HomeView: View {
-    @State private var popularProducts: [APIProduct] = []
+    @State private var popularProducts: [Product] = []
     
     var body: some View {
         NavigationView {
@@ -48,7 +48,7 @@ struct HomeView: View {
                                 .overlay(
                                     Image("appl")
                                         .resizable()
-                                        .frame(width:25,height: 25)
+                                        .frame(width: 25, height: 25)
                                         .foregroundColor(.black)
                                 )
                             Text("과일")
@@ -89,7 +89,6 @@ struct HomeView: View {
                 }
                 .padding(.top, 20)
                 
-                // Popular Products Section
                 HStack {
                     Text("인기상품🏆")
                         .font(.system(size: 17))
@@ -98,27 +97,27 @@ struct HomeView: View {
                     Spacer()
                 }
                 .padding(.top, 5)
+                
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: [GridItem(.flexible()), GridItem(.flexible())]) {
-                        ForEach(popularProducts, id: \.id) { product in
-                            ProductItem(product: product)
-                                .frame(width: 130, height: 180)
-                                .cornerRadius(10)
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 5)
+                        ForEach(popularProducts) { product in
+                            NavigationLink(destination: BuyView(product: product)) {
+                                ProductItem2(product: product)
+                                    .padding()
+                            }
                         }
                     }
+                    .padding(.horizontal, 25)
+                    .frame(height: 380)
                 }
-                .frame(height:340)
-                .padding(.leading, 23)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.bottom, 40)
             .onAppear {
                 fetchPopularProducts()
             }
+            .navigationBarBackButtonHidden(true)
         }
-        .navigationBarBackButtonHidden(true)
     }
     
     private func fetchPopularProducts() {
@@ -138,42 +137,31 @@ struct HomeView: View {
 }
 
 struct ProductItem: View {
-    let product: APIProduct
+    let apiProduct: Product
     
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImage(url: URL(string: product.image)) { image in
+            AsyncImage(url: URL(string: apiProduct.image)) { image in
                 image.resizable()
             } placeholder: {
                 ProgressView()
             }
-            .frame(width: 120, height: 120)
+            .frame(width: 100, height: 100)
             .cornerRadius(10)
             
-            Text(product.title)
-                .font(.system(size: 13))
+            Text(apiProduct.title)
+                .font(.system(size: 13, weight: .regular))
                 .foregroundColor(Color.gray)
             
-            Text("\(product.price)원")
-                .font(.system(size: 15))
+            Text("\(apiProduct.price ?? 0)원")
+                .font(.system(size: 15, weight: .regular))
         }
     }
 }
 
-struct APIProduct: Identifiable, Decodable {
-    let id: Int
-    let title: String
-    let content: String
-    let delivery: Int
-    let price: Int
-    let category: String
-    let image: String
-    let author: String
-}
-
 struct ProductsResponse: Decodable {
     let success: Bool
-    let data: [APIProduct]
+    let data: [Product]
 }
 
 struct ContentView_Previews: PreviewProvider {

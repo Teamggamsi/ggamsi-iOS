@@ -9,24 +9,27 @@ import SwiftUI
 
 struct TabbarView: View {
     var body: some View {
-        TabView {
-            HomeView()
-                .tabItem { 
-                    Image(systemName: "house.fill")
-                    Text("홈")
-                }
-            HomeView()
-                .tabItem {
-                    Image(systemName: "square.and.pencil")
-                    Text("판매")
-                }
-            HomeView()
-                .tabItem { 
-                    Image(systemName: "magnifyingglass")
-                    Text("검색")
-                }
+        NavigationView {
+            TabView {
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                        Text("홈")
+                    }
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "square.and.pencil")
+                        Text("판매")
+                    }
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "magnifyingglass")
+                        Text("검색")
+                    }
+            }
+            .accentColor(Color(hex: "#34C831"))
         }
-        .accentColor(Color(hex: "#34C831"))
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -95,7 +95,7 @@ struct LoginView: View {
                     Spacer()
                 }
                 .background(
-                    NavigationLink(destination: HomeView(), isActive: $showingHome) {
+                    NavigationLink(destination: TabbarView(), isActive: $showingHome) {
                         EmptyView()
                     }
                 )

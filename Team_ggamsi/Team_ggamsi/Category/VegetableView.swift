@@ -8,37 +8,41 @@ struct VegetableView: View {
     var category: String
     
     var body: some View {
-        VStack {
-            Text(category)
-                .font(.system(size: 20))
-                .padding(.top, 10)
-                .multilineTextAlignment(.center)
-            
-            SearchBarView(searchText: $searchText, onSearchButtonClicked: {
-                print("Search button pressed")
-                fetchProducts()
-            })
-            .padding(.bottom, 20)
-            
-            if isLoading {
-                ProgressView()
-            } else {
-                ScrollView {
-                    LazyVGrid(columns: [
-                        GridItem(.flexible(), spacing: 20),
-                        GridItem(.flexible(), spacing: 20)
-                    ], spacing: 20) {
-                        ForEach(products) { product in
-                            ProductItem2(product: product)
-                                .padding(.horizontal, 15)
+        NavigationView {
+            VStack {
+                Text(category)
+                    .font(.system(size: 20))
+                    .padding(.top, 10)
+                    .multilineTextAlignment(.center)
+                
+                SearchBarView(searchText: $searchText, onSearchButtonClicked: {
+                    print("Search button pressed")
+                    fetchProducts()
+                })
+                .padding(.bottom, 20)
+                
+                if isLoading {
+                    ProgressView()
+                } else {
+                    ScrollView {
+                        LazyVGrid(columns: [
+                            GridItem(.flexible(), spacing: 20),
+                            GridItem(.flexible(), spacing: 20)
+                        ], spacing: 20) {
+                            ForEach(products) { product in
+                                NavigationLink(destination: BuyView(product: product)) {
+                                    ProductItem2(product: product)
+                                        .padding(.horizontal, 15)
+                                }
+                            }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
             }
-        }
-        .onAppear {
-            fetchProducts()
+            .onAppear {
+                fetchProducts()
+            }
         }
     }
     
@@ -85,7 +89,7 @@ struct ProductItem2: View {
             } placeholder: {
                 ProgressView()
             }
-            .frame(width:140, height: 140)
+            .frame(width: 140, height: 140)
             .cornerRadius(10)
             
             Text(product.title)
@@ -94,6 +98,7 @@ struct ProductItem2: View {
             
             Text("\(product.price ?? 0) 원")
                 .font(.system(size: 15))
+                .foregroundColor(.black)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -129,4 +134,3 @@ struct SearchBarView: View {
 #Preview {
     VegetableView(category: "채소")
 }
-
