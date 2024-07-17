@@ -29,8 +29,10 @@ struct SellWriteView: View {
                             Image(systemName: "camera.fill")
                                 .foregroundColor(.black)
                         )
+                        .cornerRadius(10)
                         .padding(.leading, 23)
                         .padding(.bottom, 30)
+                        .padding(.top, 10)
                 }
                 
                 TextField("상품명", text: $productname)
@@ -53,6 +55,7 @@ struct SellWriteView: View {
                 Text("설명")
                     .font(.system(size: 13, weight: .regular))
                     .padding(.leading, 29)
+                    .padding(.top, 10)
                 
                 Rectangle()
                     .foregroundColor(.clear)
@@ -69,6 +72,7 @@ struct SellWriteView: View {
                 Text("태그")
                     .font(.system(size: 13, weight: .regular))
                     .padding(.leading, 29)
+                    .padding(.top, 5)
                 
                 HStack(spacing: 13) {
                     ForEach(0..<4) { _ in
@@ -87,16 +91,19 @@ struct SellWriteView: View {
                     .foregroundColor(.clear)
                     .frame(width: 393, height: 10)
                     .background(Color(hex: "D9D9D9"))
+                    .padding(.top, 10)
                 
                 Text("가격")
                     .font(.system(size: 13, weight: .regular))
                     .padding(.leading, 29)
+                    .padding(.top, 20)
                 
                 ZStack(alignment: .leading) {
                     if price == 0 {
                         Text("₩ 가격")
                             .foregroundColor(Color(hex: "D9D9D9"))
                             .padding(.leading, 44)
+                            .padding(.top, 5)
                             .font(.system(size: 13, weight: .regular))
                     }
                     TextField("", text: Binding(
@@ -116,12 +123,14 @@ struct SellWriteView: View {
                 Text("택배비")
                     .font(.system(size: 13, weight: .regular))
                     .padding(.leading, 29)
+                    .padding(.top, 15)
                 
                 ZStack(alignment: .leading) {
                     if boxprice == 0 {
                         Text("₩ 택배비")
                             .foregroundColor(Color(hex: "D9D9D9"))
                             .padding(.leading, 44)
+                            .padding(.top, 5)
                             .font(.system(size: 13, weight: .regular))
                     }
                     TextField("", text: Binding(
@@ -147,6 +156,7 @@ struct SellWriteView: View {
                         .font(.system(size: 23, weight: .regular))
                 })
                 .padding(.leading, 45)
+                .padding(.top, 30)
             }
         }
     }
